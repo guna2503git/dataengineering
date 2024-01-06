@@ -1,0 +1,430 @@
+Series is one dimensional array or columns  or list
+
+d_parse = lambda x : pd.datetime.strptime(x, '%Y-%m-%d %I-%p')
+df = pd.read_csv('file.csv', parse_dates = ['Date'], date_parser = d_parser)
+
+pd.setoption('display.max_columns',85)
+
+INDEXING
+'''import pandas as pd
+
+# Creating a simple Series
+s = pd.Series([10, 20, 30, 40, 50], index=['a', 'b', 'c', 'd', 'e'])
+
+# Accessing a single element by label
+value_at_b = s['b']
+print("Value at 'b':", value_at_b)
+
+# Accessing multiple elements by labels
+subset_by_labels = s[['a', 'c', 'e']]
+print("Subset by labels:", subset_by_labels)'''
+
+
+
+SLICING
+"""
+# Slicing the Series by label indices
+subset_by_slicing = s['a':'c']
+print("Subset by slicing:", subset_by_slicing)
+
+# Slicing the Series by position (integer indices)
+subset_by_position = s[1:4]
+print("Subset by position:", subset_by_position)
+"""
+CONDITIONL INDEXING
+"""
+# Conditional indexing
+subset_by_condition = s[s > 20]
+print("Subset by condition:", subset_by_condition)
+"""
+LOC AND I LOC
+"""
+# Using .loc for label-based indexing
+subset_loc = s.loc[['a', 'c', 'e']]
+print("Subset using .loc:", subset_loc)
+
+# Using .iloc for position-based indexing
+subset_iloc = s.iloc[1:4]
+print("Subset using .iloc:", subset_iloc)
+
+"""
+
+MODIYING INDEXING
+"""
+# Modifying a single value
+s['b'] = 25
+
+# Modifying multiple values
+s[['a', 'c']] = [5, 35]
+
+print("Modified Series:", s)
+
+"""
+
+
+
+#importing pandas
+import pandas as pd
+#creating dictionary
+data={"English_Marks":[89,85,92,94,99],
+"Maths_Marks":[78,82,91,67,89]}
+#creating a Series from dictionary
+df=pd.Series(data)
+#printing Series
+print(df)
+
+English_Marks    [89, 85, 92, 94, 99]
+Maths_Marks      [78, 82, 91, 67, 89]
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#importing pandas
+import pandas as pd
+#creating dictionary
+data={"English_Marks":[89,85,92,94,99],
+"Maths_Marks":[78,82,91,67,89]}
+#creating DataFrame from dictionary
+df=pd.DataFrame(data)
+#printing DataFrame
+print(df)
+
+        English_Marks  Maths_Marks
+0             89           78
+1             85           82
+2             92           91
+3             94           67
+4             99           89
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#importing pandas
+import pandas as pd
+#creating dictionary
+data={"English_Marks":[89,85,92,94,99],
+"Maths_Marks":[78,82,91,67,89]}
+#creating DataFrame from dictionary and pass index values as we required
+# pandas.DataFrame( data, index, columns, dtype, copy)
+df=pd.DataFrame(data, index=['a','b','c','d','e'])
+#printing DataFrame
+print(df)
+        English_Marks  Maths_Marks
+a             89           78
+b             85           82
+c             92           91
+d             94           67
+e             99           89
+
+df['maths_percentage']= df['maths_marks'].apply(lambda x : x/100)   # genate new column
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+Reading the files
+
+certain_data = pd.read_csv("path of file")
+certain_data = pd.to_csv("student.csv",index = False)  # index here means i dont want indexes to be here
+certain_data.tail()  #last data in order  DEFAULT 5 rows
+certain_data.head()  #top data in order
+certain_data.columns  # primt all
+certain_data.columns = ["Stu_name","STUDENT markes"]  #chnages column name
+df.index = ['a','b','c','d']   #changes row name
+pd.to_datetime(certain_data["Data"])  # converts into readable date time format csv
+certain_data.info() #overview
+print(df[df['Marks']>'70']) # filtering
+df.set_index('email',inplace=True) #relaces column as indexes(srl no)   "" inplace = True ""  will confirm the change and pass to nect column
+df.reset_index(inplace=True) #reolaces the existing one
+df.sort_index()
+df.sort_values(by = 'column',ascending = False)
+df['last'] == 'Doe'  #boolean if it presenrtSS
+kill = (df['last'] == 'Doe') # daaframe created with last name as Doe
+# pandas.DataFrame( data, index, columns, dtype, copy)
+high_marks = (df['marks']>90)
+df.loc(highmarks,['Country','marks','state']) #sorting the cloumn which we need to see
+df.drop(index = df [df['last'] == 'Doe'].index)  # remove index
+df[''].value_counts()   # detail stats of that column
+df[''].value_counts(normalize = True)   # percents
+
+
+countries = ["United States", "Canada", "United Kingdom", "Germany", "Japan"]
+filt = df(['country'].isin(countries)
+df.loc(filt,'country')
+
+filt = df(['country'].str.contains('Pyhton', na = False)    # na not selelct null values
+filt = df(['country'].str.lower()
+filt = df(['fullname'].str.split(' ', expand = True)  # expand used to place in diff column else it is placed under same list as two diff
+df.rename(columns = {'first_nsme': first,'last_nsme': last })   # renaming columns
+df.loc[2] = ['guna','tjg','gun543@gamil.com']     # adding new data
+df.loc[2,'last'] = 'Than'       # replcing the existing data
+
+
+#INDEXING
+df.loc[<dataframe>, 'column']
+df.iloc[1:4]   # 1st three rows with tables
+df.iloc[1:4,2] # (rows, colums) retuern only 2nd column
+df.iloc[:, :]   #all rows nd colums
+"""#Row Selection, Addition, and Deletion
+#Selection by Label
+#Rows can be selected by passing row label to a loc function.
+import pandas as pd
+
+d = {'one' : pd.Series([1, 2, 3], index=['a', 'b', 'c']),
+   'two' : pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])}
+
+df = pd.DataFrame(d)
+print(df.loc['b'])
+#Selection by integer location
+#Rows can be selected by passing integer location to an iloc function.
+import pandas as pd
+
+d = {'one' : pd.Series([1, 2, 3], index=['a', 'b', 'c']),
+   'two' : pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])}
+
+df = pd.DataFrame(d)
+print(df.iloc[2])
+"""
+
+
+
+PANDAS CONCANATE
+"""
+concate two dataframe vertically or horizantally
+horizantal - eqaul no of rows
+vertical  - equal no of columns
+
+AXIS = 1 (horizantaly)
+AXIS = 0 (Vertically)
+
+name   = ["rak","mak","lal","huk","ruk"]
+marks = [89,85,92,94,99]
+
+pd1 = pd.DataFrame("marks")
+pd2 = pd.DataFrame("name")
+
+df = pd.concat([pd1,pd2], axis =1,ignore_index = True)
+
+
+
+"""
+
+
+PANDAS DELETION
+'''
+ using del function
+print ("Deleting the first column using DEL function:")
+del df['one']
+print(df)
+
+print ("Deleting another column using POP function:")
+df.pop('two')
+print(df)
+'''
+
+PANDAS GROUPBY   - NEW DATAFRAME with grouped data
+'''
+import pandas as pd
+
+# Creating a sample DataFrame
+data = {
+    'Category': ['A', 'B', 'A', 'B', 'A', 'B', 'A', 'B'],
+    'Value': [10, 15, 20, 25, 30, 35, 40, 45]
+}
+
+df = pd.DataFrame(data)
+
+# Grouping by 'Category' and calculating the mean using agg
+result = df.groupby('Category').agg({'Value': 'mean'})
+
+# Displaying the original DataFrame and the result of the groupby operation with mean
+print("Original DataFrame:")
+print(df)
+
+print("\nResult of groupby operation with mean:")
+print(result)
+
+
+
+output
+
+Original DataFrame:
+  Category  Value
+0        A     10
+1        B     15
+2        A     20
+3        B     25
+4        A     30
+5        B     35
+6        A     40
+7        B     45
+
+Result of groupby operation with mean:
+          Value
+Category       
+A            25
+B            30
+
+
+'''
+
+dfc = df.groupby(['country'])
+dfc.get_group('India')
+dfc['Country'].agg(['mean','median']).loc['canada']
+
+filtt = dfc['country'] == 'India'
+
+
+
+
+
+PANDAS DROPNA
+"""
+import pandas as pd
+
+# Create a DataFrame with missing values
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', None, 'Eva'],
+    'Age': [25, None, 35, 28, 30],
+    'Salary': [50000, 60000, None, 70000, 80000]
+}
+
+df = pd.DataFrame(data)
+
+# Display the original DataFrame with missing values
+print("Original DataFrame:")
+print(df)
+
+# Drop missing values (NaN) from the DataFrame
+df_cleaned = df.dropna()
+
+# Display the DataFrame after dropping missing values
+print("\nDataFrame after dropping missing values:")
+print(df_cleaned)
+
+"""
+
+
+df.dropna(axis = 'index', how= 'all') #all if all value are missing . {{any}}any one of the value is missing
+df.dropna(axis = 'index', how= 'all', subset = ['last','email'])
+#as long as last or email is there no drop
+df.drop(columns=columns_to_drop, inplace=True)
+
+df.rename(columns={'OldName1': 'NewName1', 'OldName2': 'NewName2', 'OldName3': 'NewName3'}, inplace=True)
+df.isna()
+df.fillna('MISSING')   #replace with any value
+df['age'] = df['age'].astype(int)  #some missig values posses diff data type will cause error
+df['age'] = df['age'].astype(float) #solve above issue
+df.dtypes
+
+
+merge
+"""import pandas as pd
+
+# Creating two sample DataFrames
+df1 = pd.DataFrame({'key': ['A', 'B', 'C', 'D'],
+                    'value1': [1, 2, 3, 4]})
+
+df2 = pd.DataFrame({'key': ['B', 'D', 'E', 'F'],
+                    'value2': [5, 6, 7, 8]})
+
+# Displaying the original DataFrames
+print("DataFrame 1:")
+print(df1)
+
+print("\nDataFrame 2:")
+print(df2)
+
+# Performing a merge based on the 'key' column
+merged_df = pd.merge(df1, df2, on='key', how='inner')
+
+# Displaying the merged DataFrame
+print("\nMerged DataFrame:")
+print(merged_df)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+import pandas as pd
+
+# Creating sample DataFrames
+df1 = pd.DataFrame({'key': ['A', 'B', 'C'], 'value1': [1, 2, 3]})
+df2 = pd.DataFrame({'key': ['B', 'C', 'D'], 'value2': [4, 5, 6]})
+
+# Performing different types of joins
+inner_join = pd.merge(df1, df2, on='key', how='inner')
+left_join = pd.merge(df1, df2, on='key', how='left')
+right_join = pd.merge(df1, df2, on='key', how='right')
+outer_join = pd.merge(df1, df2, on='key', how='outer')
+
+# Displaying the results
+print("Inner Join:")
+print(inner_join)
+
+print("\nLeft Join:")
+print(left_join)
+
+print("\nRight Join:")
+print(right_join)
+
+print("\nOuter Join:")
+print(outer_join)
+
+
+Inner Join:
+  key  value1  value2
+0   B       2       4
+1   C       3       5
+
+Left Join:
+  key  value1  value2
+0   A       1     NaN
+1   B       2     4.0
+2   C       3     5.0
+
+Right Join:
+  key  value1  value2
+0   B     2.0       4
+1   C     3.0       5
+2   D     NaN       6
+
+Outer Join:
+  key  value1  value2
+0   A     1.0     NaN
+1   B     2.0     4.0
+2   C     3.0     5.0
+3   D     NaN     6.0
+"""
+
+
+PANDAS DATERANGE 
+'''
+import pandas as pd
+
+# Creating a date range with daily frequency for 7 days starting from a specific date
+start_date = '2023-01-01'
+end_date = '2023-01-07'
+date_range_daily = pd.date_range(start=start_date, end=end_date, freq='D')
+
+# Creating a date range with monthly frequency for 3 months starting from a specific date
+start_date = '2023-01-01'
+end_date = '2023-03-31'
+date_range_monthly = pd.date_range(start=start_date, end=end_date, freq='M') #freq='B' Business dyas
+
+# Creating a date range with hourly frequency for 24 hours starting from a specific date and time
+start_datetime = '2023-01-01 00:00:00'
+end_datetime = '2023-01-01 23:00:00'
+date_range_hourly = pd.date_range(start=start_datetime, end=end_datetime, freq='H')
+
+# Displaying the generated date ranges
+print("Daily Date Range:")
+print(date_range_daily)
+
+print("\nMonthly Date Range:")
+print(date_range_monthly)
+
+print("\nHourly Date Range:")
+print(date_range_hourly)
+
+'''
+
+df('date') =  pd.to_datetime(df('Date'Y),format = '%Y-%m-%d %I-%p')
+df.loc[0,'Date'].day_name()
+df['dayofweek']=df['Date'].dt.day_name()
+df['Date'].min()
